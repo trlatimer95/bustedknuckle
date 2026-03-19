@@ -12,12 +12,12 @@
   --color-brand-200: #bbbbbb;
   --color-brand-100: #e0e0e0;
 
-  /* Accent - Bold Red/Orange (complementary to typical auto shop branding) */
-  --color-accent-500: #d4380d;
-  --color-accent-400: #e8501a;
-  --color-accent-300: #f06830;
-  --color-accent-600: #b22d08;
-  --color-accent-700: #8c2306;
+  /* Accent - Bold Red (matching logo) */
+  --color-accent-500: #cc0000;
+  --color-accent-400: #e60000;
+  --color-accent-300: #ff1a1a;
+  --color-accent-600: #a30000;
+  --color-accent-700: #800000;
 
   /* Warm neutrals for text */
   --color-warm-50: #faf9f7;
