@@ -1,0 +1,158 @@
+---
+// Portfolio items - replace placeholder images with real photos from Facebook
+const projects = [
+  {
+    title: 'Classic Mustang Restoration',
+    category: 'restoration',
+    description: 'Ground-up restoration with custom candy apple red paint',
+    placeholder: 'bg-gradient-to-br from-red-900/40 to-brand-700',
+  },
+  {
+    title: 'Custom Hot Rod Paint',
+    category: 'paint',
+    description: 'Pearl white with custom pinstriping and graphics',
+    placeholder: 'bg-gradient-to-br from-amber-900/40 to-brand-700',
+  },
+  {
+    title: 'Collision Repair & Respray',
+    category: 'body',
+    description: 'Full panel replacement and factory color match',
+    placeholder: 'bg-gradient-to-br from-blue-900/40 to-brand-700',
+  },
+  {
+    title: 'C10 Custom Build',
+    category: 'restoration',
+    description: 'Complete frame-off restoration with custom two-tone paint',
+    placeholder: 'bg-gradient-to-br from-green-900/40 to-brand-700',
+  },
+  {
+    title: 'Metallic Candy Paint Job',
+    category: 'paint',
+    description: 'Deep metallic candy blue with clear coat finish',
+    placeholder: 'bg-gradient-to-br from-indigo-900/40 to-brand-700',
+  },
+  {
+    title: 'Quarter Panel Repair',
+    category: 'body',
+    description: 'Seamless quarter panel replacement and paint blend',
+    placeholder: 'bg-gradient-to-br from-purple-900/40 to-brand-700',
+  },
+];
+
+const categories = [
+  { label: 'All', value: 'all' },
+  { label: 'Paint', value: 'paint' },
+  { label: 'Body Work', value: 'body' },
+  { label: 'Restoration', value: 'restoration' },
+];
+---
+
+<section id="portfolio" class="py-20 sm:py-28 bg-brand-900">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <div class="w-12 h-1 bg-accent-500 mx-auto mb-6"></div>
+      <h2 class="font-heading font-800 text-3xl sm:text-4xl md:text-5xl text-white tracking-wider">
+        Our Work
+      </h2>
+      <p class="mt-4 text-warm-300 text-lg max-w-2xl mx-auto">
+        Every project tells a story. Here's a look at some of the builds, restorations, and paint jobs that have rolled through our shop.
+      </p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="flex flex-wrap justify-center gap-3 mb-10">
+      {categories.map((cat) => (
+        <button
+          data-filter={cat.value}
+          class:list={[
+            'portfolio-filter font-heading text-sm tracking-widest uppercase px-5 py-2 rounded-sm border transition-all duration-300',
+            cat.value === 'all'
+              ? 'bg-accent-500 border-accent-500 text-white'
+              : 'border-brand-500 text-warm-400 hover:border-accent-500 hover:text-accent-400',
+          ]}
+        >
+          {cat.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Gallery Grid -->
+    <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      {projects.map((project) => (
+        <div
+          data-category={project.category}
+          class="portfolio-item group relative overflow-hidden rounded-sm aspect-[4/3] cursor-pointer"
+        >
+          <!-- Placeholder (replace with <img> when real photos are available) -->
+          <div class={`absolute inset-0 ${project.placeholder} transition-transform duration-500 group-hover:scale-105`}>
+            <!-- Wrench icon placeholder -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 text-warm-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.3-5.3a1.5 1.5 0 010-2.12l1.06-1.06a1.5 1.5 0 012.12 0l2.12 2.12 2.12-2.12a1.5 1.5 0 012.12 0l1.06 1.06a1.5 1.5 0 010 2.12l-5.3 5.3a.75.75 0 01-1.06 0z" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300"></div>
+
+          <!-- Content -->
+          <div class="absolute bottom-0 left-0 right-0 p-4 sm:p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+            <span class="text-accent-400 text-xs font-heading tracking-widest uppercase">{project.category}</span>
+            <h3 class="font-heading font-700 text-lg sm:text-xl text-white tracking-wider mt-1">
+              {project.title}
+            </h3>
+            <p class="text-warm-300 text-sm mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {project.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA to Facebook -->
+    <div class="text-center mt-12">
+      <a
+        href="https://www.facebook.com/profile.php?id=61565656770852"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 text-accent-400 hover:text-accent-300 font-heading font-600 tracking-widest uppercase text-sm transition-colors"
+      >
+        See more on Facebook
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const filterBtns = document.querySelectorAll('.portfolio-filter');
+  const items = document.querySelectorAll('.portfolio-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      // Update active button styles
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-accent-500', 'border-accent-500', 'text-white');
+        b.classList.add('border-brand-500', 'text-warm-400');
+      });
+      btn.classList.add('bg-accent-500', 'border-accent-500', 'text-white');
+      btn.classList.remove('border-brand-500', 'text-warm-400');
+
+      // Filter items
+      items.forEach(item => {
+        const category = item.getAttribute('data-category');
+        if (filter === 'all' || category === filter) {
+          (item as HTMLElement).style.display = '';
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

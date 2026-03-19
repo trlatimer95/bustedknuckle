@@ -1,0 +1,178 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Busted Knuckle Auto Repair & Painting | Custom Paint, Body Work & Restoration in Lewiston, ID',
+  description = 'Professional auto body repair, custom paint jobs, and classic car restoration in Lewiston, Idaho. Specializing in high-end paint work on classic and project cars. Call (208) 553-6155.',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AutoBodyShop",
+      "@id": "https://bustedknuckleauto.com/#business",
+      "name": "Busted Knuckle Auto Repair and Painting",
+      "description": "Professional auto body repair, custom automotive paint, and classic car restoration shop in Lewiston, Idaho. Specializing in high-end custom paint jobs on classic and project cars.",
+      "url": "https://bustedknuckleauto.com",
+      "telephone": "+12085536155",
+      "email": "",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "3737 14th Street East",
+        "addressLocality": "Lewiston",
+        "addressRegion": "ID",
+        "postalCode": "83501",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 46.4004,
+        "longitude": -116.9632
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Lewiston", "containedInPlace": { "@type": "State", "name": "Idaho" } },
+        { "@type": "City", "name": "Clarkston", "containedInPlace": { "@type": "State", "name": "Washington" } },
+        { "@type": "Place", "name": "Lewis-Clark Valley" }
+      ],
+      "priceRange": "$$-$$$$",
+      "paymentAccepted": "Cash, Credit Card",
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61565656770852"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Auto Body Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Custom Automotive Paint",
+              "description": "High-end custom paint jobs including candy paint, color matching, graphics, and full resprays for classic and project cars."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Auto Body Repair",
+              "description": "Professional auto body repair including dent repair, panel replacement, and frame work."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Classic Car Restoration",
+              "description": "Ground-up restoration of classic and vintage vehicles, bringing project cars back to life."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "General Auto Repair",
+              "description": "Routine automotive maintenance including oil changes, brake service, and general repairs."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://bustedknuckleauto.com/#website",
+      "url": "https://bustedknuckleauto.com",
+      "name": "Busted Knuckle Auto Repair and Painting",
+      "publisher": { "@id": "https://bustedknuckleauto.com/#business" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What types of custom paint jobs does Busted Knuckle offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We offer a full range of custom automotive paint services including candy paint, color matching, custom graphics, pearl and metallic finishes, and complete color change resprays. We specialize in high-end paint work on classic and project cars."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you work on classic and vintage cars?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. Classic and project cars are our specialty. We offer everything from ground-up restorations to custom paint and body work, helping bring your dream build to life."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is Busted Knuckle Auto Repair located?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We're located at 3737 14th Street East, Lewiston, ID 83501, serving the Lewis-Clark Valley including Lewiston, Clarkston, and surrounding areas. Call us at (208) 553-6155."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you handle insurance claims?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While we can work with insurance, the majority of our work is custom, out-of-pocket projects. We focus on delivering premium craftsmanship for customers who want the highest quality paint and body work for their vehicles."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Primary Meta -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Busted Knuckle Auto Repair and Painting" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Geo -->
+    <meta name="geo.region" content="US-ID" />
+    <meta name="geo.placename" content="Lewiston" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body class="min-h-screen bg-brand-900 text-warm-100 antialiased">
+    <slot />
+  </body>
+</html>

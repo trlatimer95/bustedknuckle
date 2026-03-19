@@ -1,0 +1,82 @@
+---
+const currentYear = new Date().getFullYear();
+
+const navLinks = [
+  { label: 'Services', href: '#services' },
+  { label: 'Portfolio', href: '#portfolio' },
+  { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<footer class="bg-brand-800 border-t border-brand-700/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 bg-accent-500 rounded-sm flex items-center justify-center font-heading font-800 text-white text-lg">
+            BK
+          </div>
+          <div>
+            <div class="font-heading font-700 text-warm-50 text-sm leading-tight tracking-wider uppercase">Busted Knuckle</div>
+            <div class="text-warm-400 text-xs tracking-widest uppercase">Auto Repair & Painting</div>
+          </div>
+        </div>
+        <p class="text-warm-400 text-sm leading-relaxed">
+          Professional auto body repair, custom paint, and classic car restoration in Lewiston, Idaho.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="font-heading font-600 text-white tracking-wider text-sm uppercase mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          {navLinks.map((link) => (
+            <li>
+              <a href={link.href} class="text-warm-400 hover:text-accent-400 text-sm transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h3 class="font-heading font-600 text-white tracking-wider text-sm uppercase mb-4">Contact</h3>
+        <address class="not-italic space-y-2 text-warm-400 text-sm">
+          <p>3737 14th Street East</p>
+          <p>Lewiston, ID 83501</p>
+          <p class="mt-3">
+            <a href="tel:+12085536155" class="hover:text-accent-400 transition-colors">(208) 553-6155</a>
+          </p>
+        </address>
+        <!-- Social -->
+        <div class="mt-4 flex gap-3">
+          <a
+            href="https://www.facebook.com/profile.php?id=61565656770852"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-9 h-9 bg-brand-700 rounded-sm flex items-center justify-center text-warm-400 hover:bg-accent-500 hover:text-white transition-all"
+            aria-label="Visit our Facebook page"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-brand-700/50 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-warm-400/60 text-xs">
+        &copy; {currentYear} Busted Knuckle Auto Repair and Painting. All rights reserved.
+      </p>
+      <p class="text-warm-400/40 text-xs">
+        Lewiston, Idaho &mdash; Serving the Lewis-Clark Valley
+      </p>
+    </div>
+  </div>
+</footer>

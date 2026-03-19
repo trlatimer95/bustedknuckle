@@ -1,0 +1,79 @@
+---
+const services = [
+  {
+    title: 'Custom Paint & Color',
+    description: 'From show-stopping candy paint to flawless color matching, we deliver paint work that turns heads. Specializing in high-end finishes for classic cars, hot rods, and project builds.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>`,
+    highlights: ['Candy & Pearl Finishes', 'Color Matching', 'Custom Graphics', 'Full Resprays'],
+  },
+  {
+    title: 'Auto Body Repair',
+    description: 'Expert collision and body repair that restores your vehicle to better-than-new condition. We handle everything from minor dents to major structural work with precision.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.3-5.3a1.5 1.5 0 010-2.12l1.06-1.06a1.5 1.5 0 012.12 0l2.12 2.12 2.12-2.12a1.5 1.5 0 012.12 0l1.06 1.06a1.5 1.5 0 010 2.12l-5.3 5.3a.75.75 0 01-1.06 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+    highlights: ['Dent Repair', 'Panel Replacement', 'Frame Work', 'Collision Repair'],
+  },
+  {
+    title: 'Full Restoration',
+    description: 'Bringing classics back to life. Our ground-up restorations honor the original spirit of your vehicle while incorporating the quality and finish that modern techniques allow.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3l2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75l2.25-1.313M12 21.75V19.5m0 2.25l-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25" /></svg>`,
+    highlights: ['Ground-Up Builds', 'Classic Cars', 'Project Cars', 'Hot Rods'],
+  },
+  {
+    title: 'General Auto Repair',
+    description: 'Reliable, honest automotive maintenance and repair. From routine oil changes to brake service, we keep your daily driver running right.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.3-5.3a1.5 1.5 0 010-2.12l1.06-1.06a1.5 1.5 0 012.12 0l2.12 2.12 2.12-2.12a1.5 1.5 0 012.12 0l1.06 1.06a1.5 1.5 0 010 2.12l-5.3 5.3a.75.75 0 01-1.06 0zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+    highlights: ['Oil Changes', 'Brake Service', 'Tune-Ups', 'Diagnostics'],
+  },
+];
+---
+
+<section id="services" class="py-20 sm:py-28 bg-brand-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <div class="w-12 h-1 bg-accent-500 mx-auto mb-6"></div>
+      <h2 class="font-heading font-800 text-3xl sm:text-4xl md:text-5xl text-white tracking-wider">
+        What We Do
+      </h2>
+      <p class="mt-4 text-warm-300 text-lg max-w-2xl mx-auto">
+        From show-quality custom paint to everyday maintenance, we bring the same level of craftsmanship to every job.
+      </p>
+    </div>
+
+    <!-- Service Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      {services.map((service) => (
+        <article class="group bg-brand-700/50 border border-brand-600/50 rounded-sm p-6 sm:p-8 hover:border-accent-500/50 transition-all duration-300">
+          <div class="flex items-start gap-4">
+            <div class="text-accent-500 group-hover:text-accent-400 transition-colors shrink-0 mt-1" set:html={service.icon} />
+            <div>
+              <h3 class="font-heading font-700 text-xl sm:text-2xl text-white tracking-wider">
+                {service.title}
+              </h3>
+              <p class="mt-3 text-warm-300 leading-relaxed">
+                {service.description}
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {service.highlights.map((tag) => (
+                  <span class="text-xs font-heading tracking-wider uppercase bg-brand-600/50 text-warm-400 px-3 py-1 rounded-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12">
+      <a href="#contact" class="inline-flex items-center gap-2 text-accent-400 hover:text-accent-300 font-heading font-600 tracking-widest uppercase text-sm transition-colors">
+        Have a project in mind? Let's talk
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors - Dark & Bold */
+  --color-brand-900: #0a0a0a;
+  --color-brand-800: #111111;
+  --color-brand-700: #1a1a1a;
+  --color-brand-600: #2a2a2a;
+  --color-brand-500: #3a3a3a;
+  --color-brand-400: #555555;
+  --color-brand-300: #888888;
+  --color-brand-200: #bbbbbb;
+  --color-brand-100: #e0e0e0;
+
+  /* Accent - Bold Red/Orange (complementary to typical auto shop branding) */
+  --color-accent-500: #d4380d;
+  --color-accent-400: #e8501a;
+  --color-accent-300: #f06830;
+  --color-accent-600: #b22d08;
+  --color-accent-700: #8c2306;
+
+  /* Warm neutrals for text */
+  --color-warm-50: #faf9f7;
+  --color-warm-100: #f0eeeb;
+  --color-warm-200: #dedad4;
+  --color-warm-300: #c4beb5;
+  --color-warm-400: #a39d93;
+
+  /* Font families */
+  --font-heading: 'Barlow Condensed', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-brand-900);
+  color: var(--color-warm-100);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  font-weight: 700;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brand-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-500);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-500);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-accent-500);
+  color: white;
+}
