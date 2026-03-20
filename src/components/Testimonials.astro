@@ -1,21 +1,39 @@
 ---
 const testimonials = [
   {
-    quote: "The paint work on my '69 Camaro was absolutely stunning. These guys understand what car enthusiasts want and they deliver beyond expectations.",
-    name: 'Satisfied Customer',
-    vehicle: '1969 Camaro',
+    quote: "Brian has always done outstanding work over the years. His attention to detail and ability to provide a great outcome for any job is commendable.",
+    name: 'Martin Postetter',
+    date: 'January 2025',
     stars: 5,
   },
   {
-    quote: "Honest, fair, and the quality of work speaks for itself. I won't take my trucks anywhere else. True craftsmen who care about what they do.",
-    name: 'Happy Client',
-    vehicle: 'Chevy C10',
+    quote: "Brian was able to get us in within the week, repainted our entire Jeep within the business day, and provided a clear invoice. Clearly communicating every step — definitely coming here in the future!",
+    name: 'Emilie Hood',
+    date: 'May 2025',
     stars: 5,
   },
   {
-    quote: "From the initial conversation to the final reveal, the experience was top-notch. The custom paint job on my hot rod has won multiple show awards.",
-    name: 'Repeat Customer',
-    vehicle: 'Custom Hot Rod',
+    quote: "Did great work on our car. Great communication, efficient & done correctly! Highly recommend!",
+    name: 'Brandin Quintero',
+    date: 'Facebook Review',
+    stars: 5,
+  },
+  {
+    quote: "Brian got our car jacked up and going after I hit a deer this fall. The quickest repair I've ever had done! Highly recommend.",
+    name: 'Samantha Mize',
+    date: 'Facebook Review',
+    stars: 5,
+  },
+  {
+    quote: "Brian's work was outstanding and he was very easy to work with. It was done very timely and at a very reasonable price.",
+    name: 'Daena Raeon Hubbard',
+    date: 'Facebook Review',
+    stars: 5,
+  },
+  {
+    quote: "Brian did amazing work on my Jeep and I was very pleased. 100% recommend.",
+    name: 'Douglas S. Locke',
+    date: 'April 2025',
     stars: 5,
   },
 ];
@@ -56,7 +74,7 @@ const testimonials = [
 
           <div class="border-t border-brand-600/30 pt-4">
             <div class="font-heading font-600 text-white tracking-wider text-sm">{testimonial.name}</div>
-            <div class="text-warm-400 text-xs mt-1">{testimonial.vehicle}</div>
+            <div class="text-warm-400 text-xs mt-1">{testimonial.date}</div>
           </div>
         </div>
       ))}
