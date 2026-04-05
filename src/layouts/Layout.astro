@@ -18,10 +18,10 @@ const structuredData = {
   "@graph": [
     {
       "@type": "AutoBodyShop",
-      "@id": "https://bustedknuckleauto.com/#business",
+      "@id": "https://bustedknucklerepair.com/#business",
       "name": "Busted Knuckle Auto Repair and Painting",
       "description": "Professional auto body repair, custom automotive paint, and classic car restoration shop in Lewiston, Idaho. Specializing in high-end custom paint jobs on classic and project cars.",
-      "url": "https://bustedknuckleauto.com",
+      "url": "https://bustedknucklerepair.com",
       "telephone": "+12085536155",
       "email": "b.latimer@hotmail.com",
       "address": {
@@ -137,10 +137,10 @@ const structuredData = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://bustedknuckleauto.com/#website",
-      "url": "https://bustedknuckleauto.com",
+      "@id": "https://bustedknucklerepair.com/#website",
+      "url": "https://bustedknucklerepair.com",
       "name": "Busted Knuckle Auto Repair and Painting",
-      "publisher": { "@id": "https://bustedknuckleauto.com/#business" }
+      "publisher": { "@id": "https://bustedknucklerepair.com/#business" }
     },
     {
       "@type": "FAQPage",
@@ -203,7 +203,7 @@ const structuredData = {
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Busted Knuckle Auto Repair and Painting" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content={new URL('/bustedknuckle/images/logo.jpg', Astro.site)} />
+    <meta property="og:image" content={new URL('/images/logo.jpg', Astro.site)} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Busted Knuckle Auto Repair and Painting — Custom Paint, Body Work & Restoration in Lewiston, ID" />
@@ -212,7 +212,7 @@ const structuredData = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/bustedknuckle/images/logo.jpg', Astro.site)} />
+    <meta name="twitter:image" content={new URL('/images/logo.jpg', Astro.site)} />
 
     <!-- Base URL for client-side scripts -->
     <meta name="base-url" content={import.meta.env.BASE_URL} />
