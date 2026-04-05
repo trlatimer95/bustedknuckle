@@ -23,7 +23,7 @@ const structuredData = {
       "description": "Professional auto body repair, custom automotive paint, and classic car restoration shop in Lewiston, Idaho. Specializing in high-end custom paint jobs on classic and project cars.",
       "url": "https://bustedknuckleauto.com",
       "telephone": "+12085536155",
-      "email": "",
+      "email": "b.latimer@hotmail.com",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "3737 14th Street East",
@@ -46,6 +46,55 @@ const structuredData = {
       "paymentAccepted": "Cash, Credit Card",
       "sameAs": [
         "https://www.facebook.com/profile.php?id=61565656770852"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "6",
+        "reviewCount": "6"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Martin Postetter" },
+          "datePublished": "2025-01",
+          "reviewBody": "Brian has always done outstanding work over the years. His attention to detail and ability to provide a great outcome for any job is commendable.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Emilie Hood" },
+          "datePublished": "2025-05",
+          "reviewBody": "Brian was able to get us in within the week, repainted our entire Jeep within the business day, and provided a clear invoice. Clearly communicating every step — definitely coming here in the future!",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Brandin Quintero" },
+          "reviewBody": "Did great work on our car. Great communication, efficient & done correctly! Highly recommend!",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Samantha Mize" },
+          "reviewBody": "Brian got our car jacked up and going after I hit a deer this fall. The quickest repair I've ever had done! Highly recommend.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Daena Raeon Hubbard" },
+          "reviewBody": "Brian's work was outstanding and he was very easy to work with. It was done very timely and at a very reasonable price.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Douglas S. Locke" },
+          "datePublished": "2025-04",
+          "reviewBody": "Brian did amazing work on my Jeep and I was very pleased. 100% recommend.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        }
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
@@ -154,11 +203,16 @@ const structuredData = {
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Busted Knuckle Auto Repair and Painting" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={new URL('/bustedknuckle/images/logo.jpg', Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Busted Knuckle Auto Repair and Painting — Custom Paint, Body Work & Restoration in Lewiston, ID" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/bustedknuckle/images/logo.jpg', Astro.site)} />
 
     <!-- Base URL for client-side scripts -->
     <meta name="base-url" content={import.meta.env.BASE_URL} />
@@ -176,6 +230,7 @@ const structuredData = {
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body class="min-h-screen bg-brand-900 text-warm-100 antialiased">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-accent-500 focus:text-white focus:px-4 focus:py-2 focus:rounded-sm focus:font-heading focus:text-sm focus:tracking-wider">Skip to main content</a>
     <slot />
   </body>
 </html>

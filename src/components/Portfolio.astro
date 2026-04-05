@@ -456,6 +456,7 @@ const allProjects = [...featured, ...projects];
 
   let currentProject = '';
   let currentIndex = 0;
+  let previouslyFocused: HTMLElement | null = null;
 
   const lightbox  = document.getElementById('lightbox')!;
   const lbImg     = document.getElementById('lightbox-img') as HTMLImageElement;
@@ -476,15 +477,35 @@ const allProjects = [...featured, ...projects];
   }
 
   function openLightbox(projectId: string, index: number) {
+    previouslyFocused = document.activeElement as HTMLElement;
     showImage(projectId, index);
     lightbox.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+    lbClose.focus();
   }
 
   function closeLightbox() {
     lightbox.classList.add('hidden');
     document.body.style.overflow = '';
+    previouslyFocused?.focus();
   }
+
+  // Focus trap within lightbox
+  const focusableSelector = 'button:not([disabled])';
+  lightbox.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = Array.from(lightbox.querySelectorAll(focusableSelector)) as HTMLElement[];
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
 
   // Cover clicks
   document.querySelectorAll('[data-project]').forEach(el => {
