@@ -22,6 +22,7 @@ const structuredData = {
       "name": "Busted Knuckle Auto Repair and Painting",
       "description": "Professional auto body repair, custom automotive paint, and classic car restoration shop in Lewiston, Idaho. Specializing in high-end custom paint jobs on classic and project cars.",
       "url": "https://bustedknucklerepair.com",
+      "image": "https://bustedknucklerepair.com/images/og-image.jpg",
       "telephone": "+12085536155",
       "email": "b.latimer@hotmail.com",
       "address": {
@@ -44,6 +45,12 @@ const structuredData = {
       ],
       "priceRange": "$$-$$$$",
       "paymentAccepted": "Cash, Credit Card",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "17:00"
+      },
       "sameAs": [
         "https://www.facebook.com/profile.php?id=61565656770852"
       ],
@@ -52,47 +59,71 @@ const structuredData = {
         "ratingValue": "5",
         "bestRating": "5",
         "worstRating": "1",
-        "ratingCount": "6",
-        "reviewCount": "6"
+        "ratingCount": "9",
+        "reviewCount": "9"
       },
       "review": [
         {
           "@type": "Review",
-          "author": { "@type": "Person", "name": "Martin Postetter" },
-          "datePublished": "2025-01",
-          "reviewBody": "Brian has always done outstanding work over the years. His attention to detail and ability to provide a great outcome for any job is commendable.",
+          "author": { "@type": "Person", "name": "Corrie Dover Storey" },
+          "datePublished": "2026-04-29",
+          "reviewBody": "Thank you Brian at Busted Knuckle!! Scheduling was quick and easy, working around my chaotic days. Work was fast, affordable and friendly! Recommend 5/5!!",
           "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
         },
         {
           "@type": "Review",
           "author": { "@type": "Person", "name": "Emilie Hood" },
-          "datePublished": "2025-05",
-          "reviewBody": "Brian was able to get us in within the week, repainted our entire Jeep within the business day, and provided a clear invoice. Clearly communicating every step — definitely coming here in the future!",
+          "datePublished": "2025-05-01",
+          "reviewBody": "Brian was able to get us in within the week, repaired our water pump within the business day, provided a clear invoice, all while being fairly priced and friendly! Will definitely bring our vehicles here in the future!",
           "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
         },
         {
           "@type": "Review",
-          "author": { "@type": "Person", "name": "Brandin Quintero" },
+          "author": { "@type": "Person", "name": "Douglas S Leckie" },
+          "datePublished": "2025-02-10",
+          "reviewBody": "Brian did a great job with our vehicle. Great communication, accommodating and very well priced! 100% recommend.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Brandi Quintero" },
+          "datePublished": "2025-02-05",
           "reviewBody": "Did great work on our car. Great communication, efficient & done correctly! Highly recommend!",
           "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
         },
         {
           "@type": "Review",
-          "author": { "@type": "Person", "name": "Samantha Mize" },
-          "reviewBody": "Brian got our car jacked up and going after I hit a deer this fall. The quickest repair I've ever had done! Highly recommend.",
+          "author": { "@type": "Person", "name": "Martin Poxleitner" },
+          "datePublished": "2025-01-02",
+          "reviewBody": "Brian has always done outstanding work over the years. His attention to detail and ability to diagnose, fix and repair is top notch. Recommend.",
           "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
         },
         {
           "@type": "Review",
-          "author": { "@type": "Person", "name": "Daena Raeon Hubbard" },
-          "reviewBody": "Brian's work was outstanding and he was very easy to work with. It was done very timely and at a very reasonable price.",
+          "author": { "@type": "Person", "name": "Dawna Rawson Hubbard" },
+          "datePublished": "2025-01-02",
+          "reviewBody": "Brian's work was outstanding and he's very easy to work with. It was done very timely and very economical.",
           "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
         },
         {
           "@type": "Review",
-          "author": { "@type": "Person", "name": "Douglas S. Locke" },
-          "datePublished": "2025-04",
-          "reviewBody": "Brian did amazing work on my Jeep and I was very pleased. 100% recommend.",
+          "author": { "@type": "Person", "name": "Samantha Mizer" },
+          "datePublished": "2024-12-26",
+          "reviewBody": "Brian got our car back up and going after I hit a deer this fall. The quickest repair I've ever had done! Highly recommend!",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Shauna Latimer" },
+          "datePublished": "2024-10-01",
+          "reviewBody": "Brian does amazing work.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Robert Stinson" },
+          "datePublished": "2024-09-09",
+          "reviewBody": "Brian has always done excellent work. Painted my Jeep and it looks great!",
           "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
         }
       ],
@@ -203,7 +234,8 @@ const structuredData = {
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Busted Knuckle Auto Repair and Painting" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content={new URL('/images/logo.jpg', Astro.site)} />
+    <meta property="og:image" content={new URL('/images/og-image.jpg', Astro.site)} />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Busted Knuckle Auto Repair and Painting — Custom Paint, Body Work & Restoration in Lewiston, ID" />
@@ -212,7 +244,7 @@ const structuredData = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/images/logo.jpg', Astro.site)} />
+    <meta name="twitter:image" content={new URL('/images/og-image.jpg', Astro.site)} />
 
     <!-- Base URL for client-side scripts -->
     <meta name="base-url" content={import.meta.env.BASE_URL} />

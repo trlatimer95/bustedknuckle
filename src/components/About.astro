@@ -1,5 +1,6 @@
 ---
-
+import { Image } from 'astro:assets';
+import aboutImage from '../assets/portfolio/4runner.jpg';
 ---
 
 <section id="about" class="py-20 sm:py-28 bg-brand-800">
@@ -8,7 +9,15 @@
       <!-- Image / Visual -->
       <div class="relative">
         <div class="aspect-[4/3] rounded-sm overflow-hidden">
-          <img src="/images/4runner.jpg" alt="Vehicle work at Busted Knuckle Auto Repair" class="w-full h-full object-cover" />
+          <Image
+            src={aboutImage}
+            alt="Vehicle work at Busted Knuckle Auto Repair"
+            widths={[500, 1000]}
+            sizes="(min-width: 1024px) 45vw, 100vw"
+            format="webp"
+            loading="lazy"
+            class="w-full h-full object-cover"
+          />
         </div>
         <!-- Accent corner decoration -->
         <div class="absolute -bottom-3 -right-3 w-24 h-24 border-b-2 border-r-2 border-accent-500/30 rounded-sm"></div>

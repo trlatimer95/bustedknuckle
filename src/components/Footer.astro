@@ -1,5 +1,4 @@
 ---
-const base = import.meta.env.BASE_URL;
 const currentYear = new Date().getFullYear();
 
 const navLinks = [
@@ -15,8 +14,9 @@ const navLinks = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Brand -->
       <div>
-        <div class="mb-4">
-          <img src={`${base}images/logo.jpg`} alt="Busted Knuckle Auto Repair and Painting" class="h-16 w-auto rounded-sm" />
+        <div class="mb-4 leading-none">
+          <div class="font-heading font-800 text-2xl tracking-wider text-white">BUSTED KNUCKLE</div>
+          <div class="font-heading font-600 text-[11px] tracking-[0.25em] text-accent-400 mt-1">AUTO REPAIR &amp; PAINTING</div>
         </div>
         <p class="text-warm-400 text-sm leading-relaxed">
           Professional auto body repair, custom paint, and classic car restoration in Lewiston, Idaho.
@@ -69,7 +69,7 @@ const navLinks = [
       <p class="text-warm-400 text-xs">
         &copy; {currentYear} Busted Knuckle Auto Repair and Painting. All rights reserved.
       </p>
-      <p class="text-warm-400/70 text-xs">
+      <p class="text-warm-300 text-xs">
         Lewiston, Idaho &mdash; Serving the Lewis-Clark Valley
       </p>
     </div>

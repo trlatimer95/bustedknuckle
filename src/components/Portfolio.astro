@@ -1,20 +1,58 @@
 ---
-const base = import.meta.env.BASE_URL;
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
-const featured = [
+// Eagerly import every portfolio image so Astro optimizes them (resize + webp) at build time.
+const modules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/portfolio/**/*.{jpg,jpeg,JPG,JPEG}',
+  { eager: true },
+);
+
+// Resolve an image by its file name (base names are unique across the folder).
+const img = (name: string): ImageMetadata => {
+  const entry = Object.entries(modules).find(([path]) => path.endsWith('/' + name));
+  if (!entry) throw new Error(`Portfolio image not found: ${name}`);
+  return entry[1].default;
+};
+
+interface RawProject {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  cover: string;
+  images: { file: string; caption: string }[];
+}
+
+const featured: RawProject[] = [
+  {
+    id: 'celica',
+    title: "Toyota Celica GT-S",
+    category: 'restoration',
+    description: 'A tired white GT-S brought back to life — stripped to bare metal, rust repaired, engine bay detailed, and resprayed in a fresh deep red. A ground-up classic restoration.',
+    cover: 'celica-04-finished-front.jpg',
+    images: [
+      { file: 'celica-01-before.jpg',         caption: 'Before — original white GT-S' },
+      { file: 'celica-02-engine.jpg',         caption: 'Engine bay cleaned up — red 22R-E' },
+      { file: 'celica-03-stripped.jpg',       caption: 'Stripped to bare metal for bodywork' },
+      { file: 'celica-04-finished-front.jpg', caption: 'After — fresh red respray' },
+      { file: 'celica-05-finished-side.jpg',  caption: 'After — side profile' },
+      { file: 'celica-06-finished-rear.jpg',  caption: 'After — rear three-quarter' },
+    ],
+  },
   {
     id: 'camaro',
     title: "'73 Camaro Z28",
     category: 'restoration',
     description: 'Full restoration and respray — stripped from blue, rust-repaired, and brought back to life in orange with Z28 stripes.',
-    cover: `${base}images/camaro/camaro-06-finished-front.jpg`,
+    cover: 'camaro-06-finished-front.jpg',
     images: [
-      { src: `${base}images/camaro/camaro-01-before.jpg`,        caption: 'Before — original blue paint' },
-      { src: `${base}images/camaro/camaro-02-stripped.jpg`,      caption: 'Stripped down in the shop' },
-      { src: `${base}images/camaro/camaro-03-rust-repair.jpg`,   caption: 'Rust repair underway' },
-      { src: `${base}images/camaro/camaro-04-paint-booth.jpg`,   caption: 'Panels in the paint booth' },
-      { src: `${base}images/camaro/camaro-05-finished-side.jpg`, caption: 'Fresh orange — side profile' },
-      { src: `${base}images/camaro/camaro-06-finished-front.jpg`,caption: 'Finished — straight-on front' },
+      { file: 'camaro-01-before.jpg',        caption: 'Before — original blue paint' },
+      { file: 'camaro-02-stripped.jpg',      caption: 'Stripped down in the shop' },
+      { file: 'camaro-03-rust-repair.jpg',   caption: 'Rust repair underway' },
+      { file: 'camaro-04-paint-booth.jpg',   caption: 'Panels in the paint booth' },
+      { file: 'camaro-05-finished-side.jpg', caption: 'Fresh orange — side profile' },
+      { file: 'camaro-06-finished-front.jpg',caption: 'Finished — straight-on front' },
     ],
   },
   {
@@ -22,42 +60,53 @@ const featured = [
     title: "'01 Toyota 4Runner Build",
     category: 'build',
     description: 'Complete teardown and rebuild — stripped to bare shell, fresh paint, lifted with 35s, and back on the road looking mean.',
-    cover: `${base}images/4runner/4runner-06-finished.jpg`,
+    cover: '4runner-06-finished.jpg',
     images: [
-      { src: `${base}images/4runner/4runner-01-before.jpg`,   caption: 'Arrived on the trailer' },
-      { src: `${base}images/4runner/4runner-02-stripped.jpg`, caption: 'Stripped to bare shell' },
-      { src: `${base}images/4runner/4runner-03-paint.jpg`,    caption: 'Fresh paint, reassembly begins' },
-      { src: `${base}images/4runner/4runner-04-build.jpg`,    caption: 'Lift and tires going on' },
-      { src: `${base}images/4runner/4runner-05-show.jpg`,     caption: 'First show appearance' },
-      { src: `${base}images/4runner/4runner-06-finished.jpg`, caption: 'Finished and ready to wheel' },
+      { file: '4runner-01-before.jpg',   caption: 'Arrived on the trailer' },
+      { file: '4runner-02-stripped.jpg', caption: 'Stripped to bare shell' },
+      { file: '4runner-03-paint.jpg',    caption: 'Fresh paint, reassembly begins' },
+      { file: '4runner-04-build.jpg',    caption: 'Lift and tires going on' },
+      { file: '4runner-05-show.jpg',     caption: 'First show appearance' },
+      { file: '4runner-06-finished.jpg', caption: 'Finished and ready to wheel' },
     ],
   },
 ];
 
-const projects = [
+const projects: RawProject[] = [
+  {
+    id: 'c10',
+    title: "Classic Chevy C10",
+    category: 'restoration',
+    description: 'A classic Chevy C10 pickup brought back to life — bodywork and block-sanding in primer, then finished in a two-tone metallic blue and white.',
+    cover: 'c10-after.jpg',
+    images: [
+      { file: 'c10-before.jpg', caption: 'Before — bodywork in primer' },
+      { file: 'c10-after.jpg',  caption: 'After — two-tone blue & white' },
+    ],
+  },
   {
     id: 'semi',
     title: 'Semi Truck Custom Paint',
     category: 'paint',
     description: 'Custom two-tone teal and white respray on a Peterbilt semi.',
-    cover: `${base}images/truckAfter1.jpg`,
+    cover: 'truckAfter1.jpg',
     images: [
-      { src: `${base}images/truckBefore.jpg`,  caption: 'Before' },
-      { src: `${base}images/truckDuring.jpg`,  caption: 'In the booth' },
-      { src: `${base}images/truckAfter1.jpg`,  caption: 'After — driver side' },
-      { src: `${base}images/truckAfter2.jpg`,  caption: 'After — detail' },
+      { file: 'truckBefore.jpg',  caption: 'Before' },
+      { file: 'truckDuring.jpg',  caption: 'In the booth' },
+      { file: 'truckAfter1.jpg',  caption: 'After — driver side' },
+      { file: 'truckAfter2.jpg',  caption: 'After — detail' },
     ],
   },
   {
     id: 'ranger',
-    title: "Classic Ford Ranger",
+    title: "Classic Ford F-250",
     category: 'restoration',
-    description: 'Full repaint on a lifted classic Ranger — deep navy blue with a clean finish.',
-    cover: `${base}images/rangerAfter.jpg`,
+    description: 'Full repaint on a lifted classic F-250 (Ranger XLT trim) — deep navy blue with a clean finish.',
+    cover: 'rangerAfter.jpg',
     images: [
-      { src: `${base}images/rangerBefore1.jpg`, caption: 'Before' },
-      { src: `${base}images/rangerBefore2.jpg`, caption: 'Before — detail' },
-      { src: `${base}images/rangerAfter.jpg`,   caption: 'After' },
+      { file: 'rangerBefore1.jpg', caption: 'Before' },
+      { file: 'rangerBefore2.jpg', caption: 'Before — detail' },
+      { file: 'rangerAfter.jpg',   caption: 'After' },
     ],
   },
   {
@@ -65,14 +114,14 @@ const projects = [
     title: "Toyota Pickup Custom Paint",
     category: 'paint',
     description: 'Custom blue paint on an early-90s Toyota compact pickup.',
-    cover: `${base}images/tacoma2After1.jpg`,
+    cover: 'tacoma2After1.jpg',
     images: [
-      { src: `${base}images/tacoma2Before1.jpg`, caption: 'Before' },
-      { src: `${base}images/tacoma2Before2.jpg`, caption: 'Before — detail' },
-      { src: `${base}images/tacoma2Before3.jpg`, caption: 'Before — rear' },
-      { src: `${base}images/tacoma2After1.jpg`,  caption: 'After' },
-      { src: `${base}images/tacoma2After2.jpg`,  caption: 'After — detail' },
-      { src: `${base}images/tacoma2After3.jpg`,  caption: 'After — rear' },
+      { file: 'tacoma2Before1.jpg', caption: 'Before' },
+      { file: 'tacoma2Before2.jpg', caption: 'Before — detail' },
+      { file: 'tacoma2Before3.jpg', caption: 'Before — rear' },
+      { file: 'tacoma2After1.jpg',  caption: 'After' },
+      { file: 'tacoma2After2.jpg',  caption: 'After — detail' },
+      { file: 'tacoma2After3.jpg',  caption: 'After — rear' },
     ],
   },
   {
@@ -80,13 +129,13 @@ const projects = [
     title: "Classic Ford Pickup",
     category: 'restoration',
     description: 'Respray on a late-70s Ford F-series — solid blue with a lifted stance.',
-    cover: `${base}images/pickupAfter1.jpg`,
+    cover: 'pickupAfter1.jpg',
     images: [
-      { src: `${base}images/pickupBefore1.jpg`, caption: 'Before' },
-      { src: `${base}images/pickupBefore2.jpg`, caption: 'Before — detail' },
-      { src: `${base}images/pickupBefore3.jpg`, caption: 'Before — rear' },
-      { src: `${base}images/pickupAfter1.jpg`,  caption: 'After' },
-      { src: `${base}images/pickupAfter2.jpg`,  caption: 'After — detail' },
+      { file: 'pickupBefore1.jpg', caption: 'Before' },
+      { file: 'pickupBefore2.jpg', caption: 'Before — detail' },
+      { file: 'pickupBefore3.jpg', caption: 'Before — rear' },
+      { file: 'pickupAfter1.jpg',  caption: 'After' },
+      { file: 'pickupAfter2.jpg',  caption: 'After — detail' },
     ],
   },
   {
@@ -94,11 +143,11 @@ const projects = [
     title: 'Ford F-350 Super Duty',
     category: 'body',
     description: 'Body repair and respray on a Super Duty — back to showroom clean.',
-    cover: `${base}images/f350after.jpg`,
+    cover: 'f350after.jpg',
     images: [
-      { src: `${base}images/f350Before.jpg`,  caption: 'Before' },
-      { src: `${base}images/f350during.jpg`,  caption: 'During repair' },
-      { src: `${base}images/f350after.jpg`,   caption: 'After' },
+      { file: 'f350Before.jpg',  caption: 'Before' },
+      { file: 'f350during.jpg',  caption: 'During repair' },
+      { file: 'f350after.jpg',   caption: 'After' },
     ],
   },
   {
@@ -106,12 +155,12 @@ const projects = [
     title: 'Ford F-150',
     category: 'body',
     description: 'Paint and body work on a crew cab F-150.',
-    cover: `${base}images/f150after.jpg`,
+    cover: 'f150after.jpg',
     images: [
-      { src: `${base}images/f150before.jpg`,  caption: 'Before' },
-      { src: `${base}images/f150before2.jpg`, caption: 'Before — detail' },
-      { src: `${base}images/f150during.jpg`,  caption: 'During repair' },
-      { src: `${base}images/f150after.jpg`,   caption: 'After' },
+      { file: 'f150before.jpg',  caption: 'Before' },
+      { file: 'f150before2.jpg', caption: 'Before — detail' },
+      { file: 'f150during.jpg',  caption: 'During repair' },
+      { file: 'f150after.jpg',   caption: 'After' },
     ],
   },
   {
@@ -119,11 +168,11 @@ const projects = [
     title: 'GMC Sierra 2500HD',
     category: 'body',
     description: 'Body work on a heavy-duty Sierra crew cab.',
-    cover: `${base}images/gmcafter.jpg`,
+    cover: 'gmcafter.jpg',
     images: [
-      { src: `${base}images/gmcbefore1.jpg`, caption: 'Before' },
-      { src: `${base}images/gmcbefore2.jpg`, caption: 'Before — detail' },
-      { src: `${base}images/gmcafter.jpg`,   caption: 'After' },
+      { file: 'gmcbefore1.jpg', caption: 'Before' },
+      { file: 'gmcbefore2.jpg', caption: 'Before — detail' },
+      { file: 'gmcafter.jpg',   caption: 'After' },
     ],
   },
   {
@@ -131,10 +180,10 @@ const projects = [
     title: 'Toyota Tacoma',
     category: 'body',
     description: 'Body repair on a double cab Tacoma — clean and straight.',
-    cover: `${base}images/tacomaAfter.jpg`,
+    cover: 'tacomaAfter.jpg',
     images: [
-      { src: `${base}images/tacomaBefore.jpg`, caption: 'Before' },
-      { src: `${base}images/tacomaAfter.jpg`,  caption: 'After' },
+      { file: 'tacomaBefore.jpg', caption: 'Before' },
+      { file: 'tacomaAfter.jpg',  caption: 'After' },
     ],
   },
   {
@@ -142,10 +191,10 @@ const projects = [
     title: 'Dodge Ram 2500',
     category: 'body',
     description: 'Body work and respray on a classic Ram 2500.',
-    cover: `${base}images/ram2500after.jpg`,
+    cover: 'ram2500after.jpg',
     images: [
-      { src: `${base}images/ram2500before.jpg`, caption: 'Before' },
-      { src: `${base}images/ram2500after.jpg`,  caption: 'After' },
+      { file: 'ram2500before.jpg', caption: 'Before' },
+      { file: 'ram2500after.jpg',  caption: 'After' },
     ],
   },
   {
@@ -153,12 +202,12 @@ const projects = [
     title: 'Dodge Ram 2500',
     category: 'body',
     description: 'Fender flare install and body work on a lifted Ram 2500.',
-    cover: `${base}images/dodgeAfter2.jpg`,
+    cover: 'dodgeAfter2.jpg',
     images: [
-      { src: `${base}images/dodgeBefore1.jpg`, caption: 'Before' },
-      { src: `${base}images/dodgeBefore2.jpg`, caption: 'Before — rolling shot' },
-      { src: `${base}images/dodgeAfter1.jpg`,  caption: 'After — fender flares' },
-      { src: `${base}images/dodgeAfter2.jpg`,  caption: 'After — side profile' },
+      { file: 'dodgeBefore1.jpg', caption: 'Before' },
+      { file: 'dodgeBefore2.jpg', caption: 'Before — rolling shot' },
+      { file: 'dodgeAfter1.jpg',  caption: 'After — fender flares' },
+      { file: 'dodgeAfter2.jpg',  caption: 'After — side profile' },
     ],
   },
 ];
@@ -172,8 +221,27 @@ const categories = [
   { label: 'Repair',      value: 'repair' },
 ];
 
-// Merge all projects for lightbox data
-const allProjects = [...featured, ...projects];
+// Resolve file names to optimized ImageMetadata for rendering.
+const resolve = (p: RawProject) => ({
+  ...p,
+  coverImg: img(p.cover),
+  images: p.images.map((im) => ({ ...im, meta: img(im.file) })),
+});
+
+const featuredResolved = featured.map(resolve);
+const projectsResolved = projects.map(resolve);
+
+// Pre-generate optimized (webp, ~1600px) URLs for the lightbox and hand them to
+// the client script as JSON — the full-size originals are never shipped to the browser.
+const lightboxData: Record<string, { src: string; caption: string }[]> = {};
+for (const p of [...featuredResolved, ...projectsResolved]) {
+  lightboxData[p.id] = await Promise.all(
+    p.images.map(async (im) => ({
+      src: (await getImage({ src: im.meta, width: 1600, format: 'webp' })).src,
+      caption: im.caption,
+    })),
+  );
+}
 ---
 
 <section id="portfolio" class="py-20 sm:py-28 bg-brand-900">
@@ -209,18 +277,21 @@ const allProjects = [...featured, ...projects];
 
     <!-- Featured Projects (large cards) -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-      {featured.map((project) => (
+      {featuredResolved.map((project) => (
         <div data-category={project.category} class="portfolio-item group">
           <div
             class="relative overflow-hidden rounded-sm aspect-[4/3] cursor-pointer"
             data-project={project.id}
             role="button"
             tabindex="0"
-            aria-label={`View ${project.title} gallery`}
           >
-            <img
-              src={project.cover}
+            <Image
+              src={project.coverImg}
               alt={project.title}
+              widths={[400, 800]}
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              format="webp"
+              loading="lazy"
               class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
@@ -243,14 +314,14 @@ const allProjects = [...featured, ...projects];
           </div>
           <!-- Thumbnail strip -->
           <div class="grid grid-cols-6 gap-1 mt-1">
-            {project.images.map((img, i) => (
+            {project.images.map((image, i) => (
               <button
                 class="thumbnail-btn aspect-square overflow-hidden rounded-sm opacity-60 hover:opacity-100 transition-opacity duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500"
                 data-project={project.id}
                 data-index={i}
-                aria-label={img.caption}
+                aria-label={image.caption}
               >
-                <img src={img.src} alt={img.caption} class="w-full h-full object-cover" />
+                <Image src={image.meta} alt={image.caption} width={160} format="webp" loading="lazy" class="w-full h-full object-cover" />
               </button>
             ))}
           </div>
@@ -260,18 +331,21 @@ const allProjects = [...featured, ...projects];
 
     <!-- Additional Projects (3-column grid) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-      {projects.map((project) => (
+      {projectsResolved.map((project) => (
         <div data-category={project.category} class="portfolio-item group">
           <div
             class="relative overflow-hidden rounded-sm aspect-[4/3] cursor-pointer"
             data-project={project.id}
             role="button"
             tabindex="0"
-            aria-label={`View ${project.title} gallery`}
           >
-            <img
-              src={project.cover}
+            <Image
+              src={project.coverImg}
               alt={project.title}
+              widths={[300, 600]}
+              sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+              format="webp"
+              loading="lazy"
               class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
@@ -295,14 +369,14 @@ const allProjects = [...featured, ...projects];
           <!-- Thumbnail strip -->
           {project.images.length > 1 && (
             <div class={`grid gap-1 mt-1`} style={`grid-template-columns: repeat(${project.images.length}, 1fr)`}>
-              {project.images.map((img, i) => (
+              {project.images.map((image, i) => (
                 <button
                   class="thumbnail-btn aspect-square overflow-hidden rounded-sm opacity-60 hover:opacity-100 transition-opacity duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500"
                   data-project={project.id}
                   data-index={i}
-                  aria-label={img.caption}
+                  aria-label={image.caption}
                 >
-                  <img src={img.src} alt={img.caption} class="w-full h-full object-cover" />
+                  <Image src={image.meta} alt={image.caption} width={160} format="webp" loading="lazy" class="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -317,7 +391,7 @@ const allProjects = [...featured, ...projects];
         href="https://www.facebook.com/profile.php?id=61565656770852"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 text-accent-400 hover:text-accent-300 font-heading font-600 tracking-widest uppercase text-sm transition-colors"
+        class="inline-flex items-center gap-2 text-accent-300 hover:text-white font-heading font-600 tracking-widest uppercase text-sm transition-colors"
       >
         See more on Facebook
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -327,6 +401,9 @@ const allProjects = [...featured, ...projects];
     </div>
   </div>
 </section>
+
+<!-- Lightbox image data (optimized URLs) for the client script -->
+<script type="application/json" id="lightbox-data" set:html={JSON.stringify(lightboxData)}></script>
 
 <!-- Lightbox -->
 <div
@@ -362,82 +439,12 @@ const allProjects = [...featured, ...projects];
 </div>
 
 <script>
-  const base = document.querySelector('meta[name="base-url"]')?.getAttribute('content') ?? '/';
+  interface LightboxImage { src: string; caption: string; }
 
-  const projectData: Record<string, { src: string; caption: string }[]> = {
-    camaro: [
-      { src: `${base}images/camaro/camaro-01-before.jpg`,        caption: 'Before — original blue paint' },
-      { src: `${base}images/camaro/camaro-02-stripped.jpg`,      caption: 'Stripped down in the shop' },
-      { src: `${base}images/camaro/camaro-03-rust-repair.jpg`,   caption: 'Rust repair underway' },
-      { src: `${base}images/camaro/camaro-04-paint-booth.jpg`,   caption: 'Panels in the paint booth' },
-      { src: `${base}images/camaro/camaro-05-finished-side.jpg`, caption: 'Fresh orange — side profile' },
-      { src: `${base}images/camaro/camaro-06-finished-front.jpg`,caption: 'Finished — straight-on front' },
-    ],
-    '4runner': [
-      { src: `${base}images/4runner/4runner-01-before.jpg`,   caption: 'Arrived on the trailer' },
-      { src: `${base}images/4runner/4runner-02-stripped.jpg`, caption: 'Stripped to bare shell' },
-      { src: `${base}images/4runner/4runner-03-paint.jpg`,    caption: 'Fresh paint, reassembly begins' },
-      { src: `${base}images/4runner/4runner-04-build.jpg`,    caption: 'Lift and tires going on' },
-      { src: `${base}images/4runner/4runner-05-show.jpg`,     caption: 'First show appearance' },
-      { src: `${base}images/4runner/4runner-06-finished.jpg`, caption: 'Finished and ready to wheel' },
-    ],
-    semi: [
-      { src: `${base}images/truckBefore.jpg`,  caption: 'Before' },
-      { src: `${base}images/truckDuring.jpg`,  caption: 'In the booth' },
-      { src: `${base}images/truckAfter1.jpg`,  caption: 'After — driver side' },
-      { src: `${base}images/truckAfter2.jpg`,  caption: 'After — detail' },
-    ],
-    ranger: [
-      { src: `${base}images/rangerBefore1.jpg`, caption: 'Before' },
-      { src: `${base}images/rangerBefore2.jpg`, caption: 'Before — detail' },
-      { src: `${base}images/rangerAfter.jpg`,   caption: 'After' },
-    ],
-    tacoma2: [
-      { src: `${base}images/tacoma2Before1.jpg`, caption: 'Before' },
-      { src: `${base}images/tacoma2Before2.jpg`, caption: 'Before — detail' },
-      { src: `${base}images/tacoma2Before3.jpg`, caption: 'Before — rear' },
-      { src: `${base}images/tacoma2After1.jpg`,  caption: 'After' },
-      { src: `${base}images/tacoma2After2.jpg`,  caption: 'After — detail' },
-      { src: `${base}images/tacoma2After3.jpg`,  caption: 'After — rear' },
-    ],
-    pickup: [
-      { src: `${base}images/pickupBefore1.jpg`, caption: 'Before' },
-      { src: `${base}images/pickupBefore2.jpg`, caption: 'Before — detail' },
-      { src: `${base}images/pickupBefore3.jpg`, caption: 'Before — rear' },
-      { src: `${base}images/pickupAfter1.jpg`,  caption: 'After' },
-      { src: `${base}images/pickupAfter2.jpg`,  caption: 'After — detail' },
-    ],
-    f350: [
-      { src: `${base}images/f350Before.jpg`,  caption: 'Before' },
-      { src: `${base}images/f350during.jpg`,  caption: 'During repair' },
-      { src: `${base}images/f350after.jpg`,   caption: 'After' },
-    ],
-    f150: [
-      { src: `${base}images/f150before.jpg`,  caption: 'Before' },
-      { src: `${base}images/f150before2.jpg`, caption: 'Before — detail' },
-      { src: `${base}images/f150during.jpg`,  caption: 'During repair' },
-      { src: `${base}images/f150after.jpg`,   caption: 'After' },
-    ],
-    gmc: [
-      { src: `${base}images/gmcbefore1.jpg`, caption: 'Before' },
-      { src: `${base}images/gmcbefore2.jpg`, caption: 'Before — detail' },
-      { src: `${base}images/gmcafter.jpg`,   caption: 'After' },
-    ],
-    tacoma: [
-      { src: `${base}images/tacomaBefore.jpg`, caption: 'Before' },
-      { src: `${base}images/tacomaAfter.jpg`,  caption: 'After' },
-    ],
-    ram: [
-      { src: `${base}images/ram2500before.jpg`, caption: 'Before' },
-      { src: `${base}images/ram2500after.jpg`,  caption: 'After' },
-    ],
-    dodge: [
-      { src: `${base}images/dodgeBefore1.jpg`, caption: 'Before' },
-      { src: `${base}images/dodgeBefore2.jpg`, caption: 'Before — rolling shot' },
-      { src: `${base}images/dodgeAfter1.jpg`,  caption: 'After — fender flares' },
-      { src: `${base}images/dodgeAfter2.jpg`,  caption: 'After — side profile' },
-    ],
-  };
+  const dataEl = document.getElementById('lightbox-data');
+  const projectData: Record<string, LightboxImage[]> = dataEl?.textContent
+    ? JSON.parse(dataEl.textContent)
+    : {};
 
   let currentProject = '';
   let currentIndex = 0;
@@ -454,6 +461,7 @@ const allProjects = [...featured, ...projects];
   function showImage(projectId: string, index: number) {
     currentProject = projectId;
     const images = projectData[projectId];
+    if (!images || images.length === 0) return;
     currentIndex = (index + images.length) % images.length;
     lbImg.src = images[currentIndex].src;
     lbImg.alt = images[currentIndex].caption;
